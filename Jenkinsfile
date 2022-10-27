@@ -10,6 +10,8 @@ stages {
 
 		stage ("slave-ssh"){
 			steps {
+				sh "yum install git -y"
+				sh "git init"
         sh "rm -rf *"
         sh "sudo yum install docker -y"
         sh "sudo systemctl start docker"
