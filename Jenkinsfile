@@ -4,7 +4,7 @@ pipeline {
 agent{
 label{
 		label "QA"
-		customWorkspace "/mnt/container-1-90"
+		customWorkspace "/mnt/container-2-85"
      }
      }
 
@@ -16,6 +16,7 @@ stages {
 				sh "sudo yum install git -y"
 				sh "sudo git init"
 				sh "sudo git clone https://github.com/prem0609/container-gitrepo.git"
+				sh "sudo gitcheckout 22Q1"
 			}
 		}
 	       stage ("docker-install") {
@@ -24,14 +25,14 @@ stages {
 				      sh "sudo systemctl start docker" 
 			}
                }
-	       stage ("cont.90-80") {
+	       stage ("cont.85-80") {
 		steps { 
-		    sh "sudo docker rm -f prem"
+		    sh "sudo docker rm -f varun"
 		    sh "sudo docker system prune -a -f"
-                   sh "sudo docker run -itdp 90:80 --name prem httpd"
-                   sh "sudo chmod -R 777 /mnt/container-1-90/container-gitrepo/index.html"
-	           sh "sudo docker cp /mnt/container-1-90/container-gitrepo/index.html prem:/usr/local/apache2/htdocs" 
+                   sh "sudo docker run -itdp 85:80 --name varun httpd"
+                   sh "sudo chmod -R 777 /mnt/container-2-85/container-gitrepo/index.html"
+	           sh "sudo docker cp /mnt/container-2-85/container-gitrepo/index.html varun:/usr/local/apache2/htdocs" 
 		}
-	}
+	   }
     }
 }
